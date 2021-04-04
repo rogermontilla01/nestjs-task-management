@@ -35,10 +35,10 @@ export class TasksController {
     return this.tasksService.getTaskById(id);
   }
 
-  /* @Delete('/:id') */
-  /* deleteTaskById(@Param('id') id: string): Task[] { */
-  /*   return this.tasksService.deleteTaskById(id); */
-  /* } */
+  @Delete('/:id')
+  deleteTaskById(@Param('id', ParseIntPipe) id: number): Promise<void> {
+    return this.tasksService.deleteTaskById(id);
+  }
 
   /* @Patch('/status/:id') */
   /* updateTaskEstatusById( */
