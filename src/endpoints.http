@@ -13,3 +13,6 @@ POST /tasks title:="Call michelle 2" description:="Just for fun 2"
 
 #delete one task by id
 DELETE /tasks/8
+
+#update one by ID
+PATCH /tasks/status/6 status:="DONE"
