@@ -31,23 +31,10 @@ export class TasksService {
     }
   }
 
-  /* getAllTasks(): Task[] { */
-  /*   return this.tasks; */
-  /* } */
-  /* getTasksWithFilters(filterDto: GetTasksFilterDto): Task[] { */
-  /*   const { status, search } = filterDto; */
-  /*   let tasks = this.getAllTasks(); */
-  /*   //Search by status */
-  /*   if (status) { */
-  /*     tasks = tasks.filter((task) => task.status === status); */
-  /*   } */
-  /*   //Search by search parameter */
-  /*   //.includes resolve true when find a string and then filter takes the json */
-  /*   if (search) { */
-  /*     tasks = tasks.filter((task) => task.title.includes(search) || task.description.includes(search)); */
-  /*   } */
-  /*   return tasks; */
-  /* } */
+  /* Get all task */
+  async getTasks(filterDto: GetTasksFilterDto): Promise<TaskEntity[]> {
+    return this.taskRepository.getTasks(filterDto);
+  }
 
   async updateTaskEstatusById(id: number, status: TaskStatus): Promise<TaskEntity> {
     const task = await this.getTaskById(id);
@@ -56,11 +43,6 @@ export class TasksService {
     await task.save();
     return task;
   }
-  /* updateTaskEstatusById(id: string, status: TaskStatus): Task { */
-  /*   let task = this.getTaskById(id); */
-  /*   task.status = status; //task hold the reference to tasks array */
-  /*   return task; */
-  /* } */
 
   //Create new task
   async createTask(createTaskDto: CreateTaskDto): Promise<TaskEntity> {
