@@ -10,7 +10,9 @@ export class TaskRepository extends Repository<TaskEntity> {
   async getTasks(filterDto: GetTasksFilterDto): Promise<TaskEntity[]> {
     const { status, search } = filterDto;
     /* the 'task' argument is an alias to refer the task entity inside queries */
-    const query = this.createQueryBuilder('task');
+    /* on the other hand, .createQueryBuilder is a method witch comes from Repository<TaskEntity> */
+
+    const query = this.createQueryBuilder('task'); //create a variable witch contain the query builder
 
     /* We use .andWhere because we need to include both arguments in our search */
     if (status) {
@@ -18,6 +20,7 @@ export class TaskRepository extends Repository<TaskEntity> {
     }
 
     if (search) {
+      /* we use `%${search}%` because we gonna make a partial search "look at typeorm docs"*/
       query.andWhere('task.title LIKE :search OR task.description LIKE :search', { search: `%${search}%` });
     }
 

@@ -1,6 +1,7 @@
 #this document contains the curl commands for any endpoint of this project
 #the line /* jq -R '. as $raw | try fromjson catch $raw */ just improve the json highlighting
 
+#### Use "exit" to clese the terminal
 
 #get tasks by id
 curl 'http://localhost:3000/tasks/1' \
@@ -25,9 +26,14 @@ curl 'http://localhost:3000/tasks' \
   | jq -R '. as $raw | try fromjson catch $raw'
 
 #get tasks by status
-curl 'http://localhost:3000/tasks?status=OPEN' \
+curl -i 'http://localhost:3000/tasks?status=OPEN' \
   | jq -R '. as $raw | try fromjson catch $raw'
 
 #get tasks by search param (it search on title and description)
-curl 'http://localhost:3000/tasks?search=Call' \
+curl 'http://localhost:3000/tasks?search=Just' \
   | jq -R '. as $raw | try fromjson catch $raw'
+
+#authenticate one user 
+curl -i --header "Content-Type: application/json" \
+  --request POST --data '{"username":"roger","password":"admin"}' \
+  http://localhost:3000/auth/signup
