@@ -10,7 +10,7 @@ export class AuthService {
     private userRepository: UserRepository,
   ) {}
 
-  singUp(authCredentialsDto: AuthCredentialsDto): Promise<void> {
-    return this.userRepository.singUp(authCredentialsDto);
+  async singUp(authCredentialsDto: AuthCredentialsDto): Promise<void> {
+    return await this.userRepository.singUp(authCredentialsDto);
   }
 }

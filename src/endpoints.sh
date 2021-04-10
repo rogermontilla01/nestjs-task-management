@@ -33,7 +33,10 @@ curl -i 'http://localhost:3000/tasks?status=OPEN' \
 curl 'http://localhost:3000/tasks?search=Just' \
   | jq -R '. as $raw | try fromjson catch $raw'
 
-#authenticate one user 
+#Singup one user 
 curl -i --header "Content-Type: application/json" \
-  --request POST --data '{"username":"roger","password":"admin"}' \
-  http://localhost:3000/auth/signup
+  --request POST --data '{"username":"sandra","password":"User.003"}' \
+  http://localhost:3000/auth/signup \
+  | jq -R '. as $raw | try fromjson catch $raw'
+
+
