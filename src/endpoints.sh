@@ -39,4 +39,9 @@ curl -i --header "Content-Type: application/json" \
   http://localhost:3000/auth/signup \
   | jq -R '. as $raw | try fromjson catch $raw'
 
+#sing user
+curl -i --header "Content-Type: application/json" \
+  --request POST --data '{"username":"sandra","password":"User.0003"}' \
+  http://localhost:3000/auth/signin \
+  | jq -R '. as $raw | try fromjson catch $raw'
 
