@@ -41,7 +41,12 @@ curl -i --header "Content-Type: application/json" \
 
 #sing user
 curl -i --header "Content-Type: application/json" \
-  --request POST --data '{"username":"sandra","password":"User.0003"}' \
+  --request POST --data '{"username":"sandra","password":"User.003"}' \
   http://localhost:3000/auth/signin \
   | jq -R '. as $raw | try fromjson catch $raw'
+
+
+#test
+curl --location --request POST 'http://localhost:3000/auth/test' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNhbmRyYSIsImlhdCI6MTYxODE4ODI0OSwiZXhwIjoxNjE4MTkxODQ5fQ.PxGZLqMXnDCt_H8d3cVFeqwFA6JQitetYVLzJ5oV2Sk' 
 
