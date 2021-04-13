@@ -28,6 +28,9 @@ export class UserRepository extends Repository<User> {
 
   async validateUserPassword(authCredentialsDto: AuthCredentialsDto): Promise<string> {
     const { username, password } = authCredentialsDto;
+
+    //al hacer el findOne el objeto user ya tiene los datos del usuario ademas del metodo validateUserPassword
+    //de esta forma ya se puede comparar usand bcrypt
     const user = await this.findOne({ username });
 
     //validate user and password match

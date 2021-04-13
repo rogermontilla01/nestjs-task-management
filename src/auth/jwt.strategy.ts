@@ -18,7 +18,8 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     });
   }
 
-  async validate(payload: JwtPayload) {
+  //todo lo que se retona de aqui sera validado por el AuthGuard() ###Revisar###
+  async validate(payload: JwtPayload): Promise<User> {
     const { username } = payload;
     const user = await this.userRepository.findOne({ username });
 

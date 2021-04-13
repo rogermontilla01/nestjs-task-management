@@ -23,6 +23,7 @@ curl --data-urlencode 'status=IN_PROGRESS' \
 
 #get all tasks
 curl 'http://localhost:3000/tasks' \
+  --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNhbmRyYSIsImlhdCI6MTYxODM0NjAyNiwiZXhwIjoxNjE4MzQ5NjI2fQ.yLyRqAUJ-KALweoWHGsA8Rc96xppNKZjKdtgk0U1KUA' \
   | jq -R '. as $raw | try fromjson catch $raw'
 
 #get tasks by status
@@ -48,5 +49,5 @@ curl -i --header "Content-Type: application/json" \
 
 #test
 curl --location --request POST 'http://localhost:3000/auth/test' \
---header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNhbmRyYSIsImlhdCI6MTYxODE4ODI0OSwiZXhwIjoxNjE4MTkxODQ5fQ.PxGZLqMXnDCt_H8d3cVFeqwFA6JQitetYVLzJ5oV2Sk' 
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNhbmRyYSIsImlhdCI6MTYxODE4OTAyNiwiZXhwIjoxNjE4MTkyNjI2fQ.4OVJhpSiXPhcgM0c-7CNucHp27hkwdarSl6GTibReWA' 
 

@@ -23,6 +23,7 @@ export class AuthService {
     if (!username) {
       throw new UnauthorizedException('Invalid credentias');
     }
+    //Aplica la interface que esta en el jwt-payload-interface.ts
     const payload: JwtPayload = { username };
     const accessToken = await this.jwtService.sign(payload);
 
