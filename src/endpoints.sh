@@ -21,7 +21,7 @@ curl -H "Authorization: Bearer ${USER_TOKEN_1}" \
 #update one by ID
 curl -H "Authorization: Bearer ${USER_TOKEN_1}" \
   --data-urlencode 'status=DONE' \
-  -X PATCH 'http://localhost:3000/tasks/status/2' \
+  -X PATCH 'http://localhost:3000/tasks/2/status' \
   | jq -R '. as $raw | try fromjson catch $raw'
 
 
