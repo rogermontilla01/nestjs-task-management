@@ -4,47 +4,61 @@
 #### Use "exit" to clese the terminal
 
 #get tasks by id
-curl 'http://localhost:3000/tasks/1' \
+curl -s 'http://localhost:3000/tasks/1' \
+  --header "Authorization: Bearer $USER_TOKEN_2" \
   | jq -R '. as $raw | try fromjson catch $raw' 
 
 #create task
-curl -d "title=curlTest&description=I am using curl" \
-  -X POST http://localhost:3000/tasks \
+curl -H "Authorization: Bearer ${USER_TOKEN_1}" \
+  -X POST --data "title=Task with an owner&description=This is a test 3" \
+  'http://localhost:3000/tasks' \
   | jq -R '. as $raw | try fromjson catch $raw' 
 
 #delete one task by id
-curl -X DELETE http://localhost:3000/tasks/16 
+curl -H "Authorization: Bearer ${USER_TOKEN_1}" \
+  -X DELETE http://localhost:3000/tasks/3 
 
 #update one by ID
-curl --data-urlencode 'status=IN_PROGRESS' \
-  -X PATCH 'http://localhost:3000/tasks/status/8' \
+curl -H "Authorization: Bearer ${USER_TOKEN_1}" \
+  --data-urlencode 'status=DONE' \
+  -X PATCH 'http://localhost:3000/tasks/status/2' \
   | jq -R '. as $raw | try fromjson catch $raw'
 
 
-#get all tasks
-curl 'http://localhost:3000/tasks' \
-  --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNhbmRyYSIsImlhdCI6MTYxODM1NTkzNCwiZXhwIjoxNjE4MzU5NTM0fQ.rF4bEqxhmfpLKrw022uStn15ItCgY52sYgMVD7YqR60' \
+#get all tasks by user
+curl -s 'http://localhost:3000/tasks' \
+  --header "Authorization: Bearer ${USER_TOKEN_1}" \
   | jq -R '. as $raw | try fromjson catch $raw'
 
 #get tasks by status
 curl -i 'http://localhost:3000/tasks?status=OPEN' \
+  --header "Authorization: Bearer ${USER_TOKEN_1}" \
   | jq -R '. as $raw | try fromjson catch $raw'
 
 #get tasks by search param (it search on title and description)
-curl 'http://localhost:3000/tasks?search=Just' \
+curl 'http://localhost:3000/tasks?search=1' \
+  --header "Authorization: Bearer ${USER_TOKEN_1}" \
   | jq -R '. as $raw | try fromjson catch $raw'
 
-#Singup one user 
+#singup one user 
 curl -i --header "Content-Type: application/json" \
-  --request POST --data '{"username":"sandra","password":"User.003"}' \
+  --request POST --data '{"username":"sandra","password":"User.002"}' \
   http://localhost:3000/auth/signup \
   | jq -R '. as $raw | try fromjson catch $raw'
 
-#sing user
-curl -i --header "Content-Type: application/json" \
-  --request POST --data '{"username":"sandra","password":"User.003"}' \
+#singin user 1
+curl -s --header "Content-Type: application/json" \
+  --request POST --data '{"username":"natalia","password":"User.001"}' \
   http://localhost:3000/auth/signin \
-  | jq -R '. as $raw | try fromjson catch $raw'
+  | export USER_TOKEN_1=$( jq -r '.accessToken') && \
+  echo $USER_TOKEN_1
+
+#singin user 2
+curl -s --header "Content-Type: application/json" \
+  --request POST --data '{"username":"sandra","password":"User.002"}' \
+  http://localhost:3000/auth/signin \
+  | export USER_TOKEN_2=$( jq -r '.accessToken') && \
+  echo $USER_TOKEN_2
 
 
 #test
